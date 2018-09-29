@@ -70,4 +70,14 @@ describe('fs.chmod, fs.fchmod', function() {
       });
     });
   });
+
+  it('should err when path does not exist', function(done){
+    var fs=util.fs();
+    var mode=0x8000|0x1FF;
+    fs.chmod('/file',mode,function(error){
+      expect(error).to.exist;
+      expect(error.code).to.equal('ENOENT');
+      done();
+    });
+  });
 });
